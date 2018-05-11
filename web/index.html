@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="es">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Siguit</title>
+	<link rel="icon" href="img/favicon.png?v=0.1" sizes="32x32" type="image/png">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Bitter:400,700|Lato:300,400,700,900">
+	<link rel="stylesheet" href="css/styles.css?v=0.1">
+  <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script>
+  function findNetworks()
+  {
+    // console.log("getting props") ;
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+      if (this.readyState == 4 && this.status == 200) {
+        console.log(this.responseText);
+        var ul = document.getElementById("wifi_list") ;
+        ul.innerHTML += this.responseText ;
+      }
+    };
+    xhttp.open("GET", "/cgi-bin/find_networks.pl", true);
+    xhttp.send();
+  }
+
+  </script>
+	<script defer src="js/libraries/svg4everybody.min.js"></script>
+	<script defer src="js/constant.js?v0.1"></script>
+</head>
+<body class="dark">
+	<main>
+		<div class="wifi">
+			<button type="button" class="wifis"><svg aria-label="WiFi"><use xlink:href="img/constant.svg#wifi" /></svg></button>
+			<ul id="wifi_list">
+				<!-- <li class="refresh rotate"><button type="button" onclick="findNetworks()">Buscar redes <svg aria-hidden="true" class="inline"><use xlink:href="img/constant.svg#refresh" /></svg></button></li> -->
+				<li class="refresh"><button type="button" onclick="findNetworks()">Buscar redes <svg aria-hidden="true" class="inline"><use xlink:href="img/constant.svg#refresh" /></svg></button></li>
+        <script>
+          findNetworks();
+        </script>
+      </ul>
+		</div>
+
+		<div class="modal" data-modal="wifi">
+			<div>
+				<p class="h3">Ingrese la contraseña de la wifi seleccionada para conectarse</p>
+				<form action="#">
+					<div>
+						<input class="form-control" placeholder="Contraseña" type="password" required>
+						<small class="description">La contraseña es incorrecta</small>
+					</div>
+					<div>
+						<button class="button">Conectar</button>
+					</div>
+				</form>
+				<div class="conectando">
+					<span><svg aria-hidden="true" class="inline"><use xlink:href="img/constant.svg#refresh" /></svg></span>
+					Conectando...
+				</div>
+			</div>
+			<button type="button" class="close"><svg aria-hidden="true"><use xlink:href="img/constant.svg#cross-thin" /></svg> Cerrar</button>
+		</div>
+	</main>
+</body>
+
+</html>

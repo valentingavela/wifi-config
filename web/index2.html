@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="es">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Siguit</title>
+	<link rel="icon" href="img/favicon.png?v=0.1" sizes="32x32" type="image/png">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Bitter:400,700|Lato:300,400,700,900">
+	<link rel="stylesheet" href="css/styles.css?v=0.1">
+	<script defer src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+	<script defer src="js/libraries/svg4everybody.min.js"></script>
+	<script defer src="js/constant.js?v0.1"></script>
+</head>
+<body class="dark">
+	<main>
+		<div class="wifi">
+			<button type="button" class="wifis"><svg aria-label="WiFi"><use xlink:href="img/constant.svg#wifi" /></svg></button>
+			<ul>
+				<li class="refresh rotate"><button type="button">Buscar redes <svg aria-hidden="true" class="inline"><use xlink:href="img/constant.svg#refresh" /></svg></button></li>
+				<li><button type="button" data-modal="wifi">Wifi</button></li>
+				<li><button type="button" data-modal="wifi" class="connected">Wifi #222 XJK</button></li>
+				<li><button type="button" data-modal="wifi">Wifi #2</button></li>
+			</ul>
+		</div>
+
+		<div class="modal" data-modal="wifi">
+			<div>
+				<p class="h3">Ingrese la contraseña de la wifi seleccionada para conectarse</p>
+				<form action="#">
+					<div>
+						<input class="form-control" placeholder="Contraseña" type="password" required>
+						<small class="description">La contraseña es incorrecta</small>
+					</div>
+					<div>
+						<button class="button">Conectar</button>
+					</div>
+				</form>
+				<div class="conectando">
+					<span><svg aria-hidden="true" class="inline"><use xlink:href="img/constant.svg#refresh" /></svg></span>
+					Conectando...
+				</div>
+			</div>
+			<button type="button" class="close"><svg aria-hidden="true"><use xlink:href="img/constant.svg#cross-thin" /></svg> Cerrar</button>
+		</div>
+	</main>
+</body>
+</html>
