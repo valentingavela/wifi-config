@@ -11,19 +11,51 @@
   <script>
   function findNetworks()
   {
-    // console.log("getting props") ;
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
       if (this.readyState == 4 && this.status == 200) {
-        console.log(this.responseText);
+        // console.log(this.responseText);
         var ul = document.getElementById("wifi_list") ;
-        ul.innerHTML += this.responseText ;
+        ul.innerHTML = this.responseText ;
       }
     };
     xhttp.open("GET", "/cgi-bin/find_networks.pl", true);
     xhttp.send();
   }
 
+	function connect()
+	{
+		var xhttp = new XMLHttpRequest();
+		xhttp.onreadystatechange = function() {
+			if (this.readyState == 4 && this.status == 200) {
+				if(this.responseText == 'ok')
+				{
+					document.getElementById("conectando").className = "conectando";
+					alert("El sistema se está conectando. Siga las instrucciones en la pantalla de la cartelera.");
+				}
+				else
+				{
+					alert(this.responseText);
+				}
+			}
+		};
+		var pwd = document.getElementById("pwd").value ;
+		var ssid = document.getElementById("ssid").value ;
+		console.log(`/cgi-bin/find_networks.pl?ssid=${ssid}&pwd=${pwd}`) ;
+		xhttp.open("GET", `/cgi-bin/set_password.pl?ssid=${ssid}&pwd=${pwd}`, true);
+		xhttp.send();
+
+		console.log("sending") ;
+		return false;
+	}
+
+
+	function showForm(wifi_net)
+	{
+		$('#ssid').val(wifi_net);
+		var modal = $(this).attr('data-modal');
+		$('#wifi-form').addClass('fade-in');
+	}
   </script>
 	<script defer src="js/libraries/svg4everybody.min.js"></script>
 	<script defer src="js/constant.js?v0.1"></script>
@@ -34,28 +66,28 @@
 			<button type="button" class="wifis"><svg aria-label="WiFi"><use xlink:href="img/constant.svg#wifi" /></svg></button>
 			<ul id="wifi_list">
 				<!-- <li class="refresh rotate"><button type="button" onclick="findNetworks()">Buscar redes <svg aria-hidden="true" class="inline"><use xlink:href="img/constant.svg#refresh" /></svg></button></li> -->
-				<li class="refresh"><button type="button" onclick="findNetworks()">Buscar redes <svg aria-hidden="true" class="inline"><use xlink:href="img/constant.svg#refresh" /></svg></button></li>
         <script>
           findNetworks();
         </script>
       </ul>
 		</div>
 
-		<div class="modal" data-modal="wifi">
+		<div class="modal" data-modal="wifi" id="wifi-form">
 			<div>
 				<p class="h3">Ingrese la contraseña de la wifi seleccionada para conectarse</p>
-				<form action="#">
+				<form action="#" onsubmit="return connect()" method="post">
 					<div>
-						<input class="form-control" placeholder="Contraseña" type="password" required>
+						<input id="pwd" class="form-control" placeholder="Contraseña" type="password" name="pwd" required>
+						<input type="hidden" name="ssid" value="" id="ssid">
 						<small class="description">La contraseña es incorrecta</small>
 					</div>
 					<div>
 						<button class="button">Conectar</button>
 					</div>
 				</form>
-				<div class="conectando">
+				<div class="conectando hide" id="conectando">
 					<span><svg aria-hidden="true" class="inline"><use xlink:href="img/constant.svg#refresh" /></svg></span>
-					Conectando...
+					El sistema se está conectando. Siga las instrucciones en la pantalla de la cartelera.
 				</div>
 			</div>
 			<button type="button" class="close"><svg aria-hidden="true"><use xlink:href="img/constant.svg#cross-thin" /></svg> Cerrar</button>
