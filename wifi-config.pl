@@ -75,6 +75,10 @@ elsif ($command eq "CLI")
   system("cp /home/pi/wifi-config/cli/wpa_supplicant.conf /etc/wpa_supplicant/wpa_supplicant.conf") ;
   system($iptables_flush) ;
   startServicesCli() ;
+  system("dhclient -r wlan0") ;
+  system("dhclient -r eth0") ;
+  system("dhclient -v eth0") ;
+
   # system("dhclient -r wlan0") ;
   # system("dhclient -v wlan0") ;
   # system("dhclient -r eth0") ;
