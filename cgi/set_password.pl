@@ -2,7 +2,6 @@
 use strict ;
 use warnings ;
 use CGI;
-# use Encode qw(decode encode);
 use utf8;
 
 my $cgi = new CGI ;
@@ -15,7 +14,7 @@ if (length($pwd) > 7)
   system("wpa_passphrase $wifi $pwd >> /home/pi/wifi-config/cli/wpa_supplicant.conf") ;
   print $cgi->header();
   print("ok");
-  # print $cgi->redirect('../index.html');
+  system("echo 1 > /tmp/configure_wifi") ;
 }
 else
 {
