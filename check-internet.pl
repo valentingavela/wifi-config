@@ -1,8 +1,10 @@
 #!/usr/local/bin/perl
 use File::Slurp;
+sleep(20) ;
 
 while (true) 
 {
+  sleep(15) ;
   #clearScn() ;
   my $net_status = networkStatus() ;
   my $process_status = read_file( '/tmp/process_status' ) ;
@@ -39,7 +41,6 @@ while (true)
 		system("echo -n CANT_CONNECT > /tmp/process_status") ;		  
 	  }
   }
-  sleep(15) ;
 }
 
 sub clearScn
