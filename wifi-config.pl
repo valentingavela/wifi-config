@@ -1,5 +1,6 @@
 #!/usr/local/bin/perl
 #https://thepi.io/how-to-use-your-raspberry-pi-as-a-wireless-access-point/
+#NOTE: DONT TURN OFF WIFI IN DESKTOP BAR MENU
 use strict ;
 use warnings ;
 

@@ -14,7 +14,7 @@ if (length($pwd) > 7)
   system("wpa_passphrase $wifi $pwd >> /home/pi/wifi-config/cli/wpa_supplicant.conf") ;
   print $cgi->header();
   print("ok");
-  system("echo 1 > /tmp/configure_wifi") ;
+  system("echo -n CLIENT_SET_PASSWORD > /tmp/process_status") ;
 }
 else
 {

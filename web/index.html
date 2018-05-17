@@ -6,58 +6,59 @@ TODO CAMBIAR EL CODE JQUERY A LOCAL SINO NO VA A ANDAR
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Siguit</title>
 	<link rel="icon" href="img/favicon.png?v=0.1" sizes="32x32" type="image/png">
-	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Bitter:400,700|Lato:300,400,700,900">
+	<link rel="stylesheet" href="css/LatoFont">
+	<link rel="stylesheet" href="css/BitterFont">
 	<link rel="stylesheet" href="css/styles.css?v=0.1">
-  <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
-  <script>
-  function findNetworks()
-  {
-    var xhttp = new XMLHttpRequest();
-    xhttp.onreadystatechange = function() {
-      if (this.readyState == 4 && this.status == 200) {
-        // console.log(this.responseText);
-        var ul = document.getElementById("wifi_list") ;
-        ul.innerHTML = this.responseText ;
-      }
-    };
-    xhttp.open("GET", "/cgi-bin/find_networks.pl", true);
-    xhttp.send();
-  }
-
-	function connect()
-	{
+	<script src="js/jquery-3.2.1.min.js"></script>
+	  <script>
+	  function findNetworks()
+	  {
 		var xhttp = new XMLHttpRequest();
 		xhttp.onreadystatechange = function() {
-			if (this.readyState == 4 && this.status == 200) {
-				if(this.responseText == 'ok')
-				{
-					document.getElementById("conectando").className = "conectando";
-					alert("El sistema se está conectando. Siga las instrucciones en la pantalla de la cartelera.");
-				}
-				else
-				{
-					alert(this.responseText);
-				}
-			}
+		  if (this.readyState == 4 && this.status == 200) {
+			// console.log(this.responseText);
+			var ul = document.getElementById("wifi_list") ;
+			ul.innerHTML = this.responseText ;
+		  }
 		};
-		var pwd = document.getElementById("pwd").value ;
-		var ssid = document.getElementById("ssid").value ;
-		console.log(`/cgi-bin/find_networks.pl?ssid=${ssid}&pwd=${pwd}`) ;
-		xhttp.open("GET", `/cgi-bin/set_password.pl?ssid=${ssid}&pwd=${pwd}`, true);
+		xhttp.open("GET", "/cgi-bin/find_networks.pl", true);
 		xhttp.send();
+	  }
 
-		console.log("sending") ;
-		return false;
-	}
+		function connect()
+		{
+			var xhttp = new XMLHttpRequest();
+			xhttp.onreadystatechange = function() {
+				if (this.readyState == 4 && this.status == 200) {
+					if(this.responseText == 'ok')
+					{
+						document.getElementById("conectando").className = "conectando";
+						alert("El sistema se está conectando. Siga las instrucciones en la pantalla de la cartelera.");
+					}
+					else
+					{
+						alert(this.responseText);
+					}
+				}
+			};
+			var pwd = document.getElementById("pwd").value ;
+			var ssid = document.getElementById("ssid").value ;
+			console.log(`/cgi-bin/find_networks.pl?ssid=${ssid}&pwd=${pwd}`) ;
+			xhttp.open("GET", `/cgi-bin/set_password.pl?ssid=${ssid}&pwd=${pwd}`, true);
+			xhttp.send();
+
+			console.log("sending") ;
+			return false;
+		}
 
 
-	function showForm(wifi_net)
-	{
-		$('#ssid').val(wifi_net);
-		var modal = $(this).attr('data-modal');
-		$('#wifi-form').addClass('fade-in');
-	}
-  </script>
+		function showForm(wifi_net)
+		{
+			$('#ssid').val(wifi_net);
+			var modal = $(this).attr('data-modal');
+			$('#wifi-form').addClass('fade-in');
+		}
+	  </script>
 	<script defer src="js/libraries/svg4everybody.min.js"></script>
 	<script defer src="js/constant.js?v0.1"></script>
 </head>
