@@ -19,5 +19,5 @@ fi
 
 touch /tmp/process_status
 chmod 777 /tmp/process_status
-
+perl /home/pi/wifi-config/check-internet.pl &
 exit 0

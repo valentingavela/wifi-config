@@ -39,7 +39,7 @@ while (true)
 		system("echo -n CANT_CONNECT > /tmp/process_status") ;		  
 	  }
   }
-  sleep(1) ;
+  sleep(15) ;
 }
 
 sub clearScn
