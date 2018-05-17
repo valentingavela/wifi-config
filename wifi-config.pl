@@ -65,7 +65,7 @@ if ($command eq "AP")
   startServicesAp() ;
   system("dhclient -r wlan0") ;
   system("dhclient -r eth0") ;
-  system("dhclient -v eth0") ;
+  #system("dhclient -v eth0") ;
 }
 elsif ($command eq "CLI")
 {
@@ -84,7 +84,4 @@ elsif ($command eq "CLI")
   # system("dhclient -r eth0") ;
   # system("dhclient -v eth0") ;
 }
-else
-{
-  exit ;
-}
+exit ;
