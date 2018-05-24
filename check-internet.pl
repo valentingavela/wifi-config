@@ -1,6 +1,6 @@
 #!/usr/local/bin/perl
 use File::Slurp;
-sleep(20) ;
+sleep(40) ;
 
 while (true) 
 {
