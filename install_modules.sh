@@ -1,7 +1,7 @@
 #!/bin/bash
 echo "RUN AS SUDO!"
 apt update &&
-apt install dnsmask &&
+apt install dnsmask hostapd &&
 ln -s /home/pi/wifi-config/web/css/   /var/www/html/css
 ln -s /home/pi/wifi-config/web/img/   /var/www/html/img
 ln -s /home/pi/wifi-config/web/index2.html  /var/www/html/index2.html
