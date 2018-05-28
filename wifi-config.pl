@@ -7,6 +7,14 @@ use warnings ;
 my $random = int(rand(1000)) ;
 my $command = $ARGV[0] ;
 
+sub read_file
+{
+  my $filename = shift ;
+  open(my $fh, '<:encoding(UTF-8)', $filename)
+    or die "Could not open file '$filename' $!";
+    return <$fh> ;
+}
+
 sub file_write
 {
   my $filename = shift ;
@@ -14,6 +22,18 @@ sub file_write
   open(my $fh, '>', $filename) or die "Could not open file '$filename' $!";
   print $fh $text ;
   close $fh;
+}
+
+sub setFirstTimeConfigurationStatus
+{
+  my $filename = '/var/www/html/firstTimeConfiguration';
+  my $status = read_file($filename) ;
+
+  if($status eq 'WIFI_CONFIGURATION')
+  {
+    system("echo -n > /var/lib/misc/dnsmasq.leases") ;
+    system("echo -n SYNCHRO > $filename") ;
+  }
 }
 
 sub stopServices
@@ -86,23 +106,4 @@ elsif ($command eq "CLI")
   # system("dhclient -v eth0") ;
 }
 
-
-sub setFirstTimeConfigurationStatus
-{
-  my $filename = '/var/www/html/firstTimeConfiguration';
-  my $status = read_file($filename) ;
-
-  if($status eq 'WIFI_CONFIGURATION')
-  {
-    system("echo -n SYNCHRO > $filename") ;
-  }
-}
-
-sub read_file
-{
-  my $filename = shift ;
-  open(my $fh, '<:encoding(UTF-8)', $filename)
-    or die "Could not open file '$filename' $!";
-    return <$fh> ;
-}
 exit ;
