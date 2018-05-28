@@ -79,10 +79,30 @@ elsif ($command eq "CLI")
   system("dhclient -r wlan0") ;
   system("dhclient -r eth0") ;
   system("dhclient -v eth0") ;
-
+  setFirstTimeConfigurationStatus() ;
   # system("dhclient -r wlan0") ;
   # system("dhclient -v wlan0") ;
   # system("dhclient -r eth0") ;
   # system("dhclient -v eth0") ;
+}
+
+
+sub setFirstTimeConfigurationStatus
+{
+  my $filename = '/var/www/html/firstTimeConfiguration';
+  my $status = read_file($filename) ;
+
+  if($status eq 'WIFI_CONFIGURATION')
+  {
+    system("echo -n SYNCHRO > $filename") ;
+  }
+}
+
+sub read_file
+{
+  my $filename = shift ;
+  open(my $fh, '<:encoding(UTF-8)', $filename)
+    or die "Could not open file '$filename' $!";
+    return <$fh> ;
 }
 exit ;

@@ -2,13 +2,13 @@
 use File::Slurp;
 sleep(40) ;
 
-while (true) 
+while (true)
 {
   sleep(15) ;
   #clearScn() ;
   my $net_status = networkStatus() ;
   my $process_status = read_file( '/tmp/process_status' ) ;
-			
+
   print("NET STAT: $net_status \n");
   print("PROCESS STATUS: $process_status \n");
 
@@ -23,9 +23,9 @@ while (true)
   {
 	  #SET AP MODE
 	  print("SETTING AP MODE \n") ;
-  	  system("echo -n AP_IS_SET > /tmp/process_status") ;  
+  	  system("echo -n AP_IS_SET > /tmp/process_status") ;
       system("perl /home/pi/wifi-config/wifi-config.pl AP") ;
-      system("echo -n WAIT_FOR_CLIENT > /tmp/process_status") ;  
+      system("echo -n WAIT_FOR_CLIENT > /tmp/process_status") ;
   }
   elsif($process_status eq "CLIENT_SET_PASSWORD")
   #($net_status == 256 && $process_status ne "CLI_IS_SET" && $process_status ne "WAIT_FOR_CLIENT")
@@ -33,12 +33,12 @@ while (true)
 	  print("SETTING CLI MODE \n") ;
 	  system("echo -n CLI_IS_SET > /tmp/process_status") ;
 	  system("perl /home/pi/wifi-config/wifi-config.pl CLI") ;
-	  
+
 	  sleep(1) ;
-	  
+
 	  if(waitForInternet() == 0) #IF NO INTERNET
 	  {
-		system("echo -n CANT_CONNECT > /tmp/process_status") ;		  
+		system("echo -n CANT_CONNECT > /tmp/process_status") ;
 	  }
   }
 }
@@ -63,7 +63,7 @@ sub waitForInternet
 	{
 		if(networkStatus() == 0)
 		{
-			$status = 1 ;	
+			$status = 1 ;
 			print("CONNECTED TO INTERNET. Try $i \n") ;
 			sleep(1) ;
 			last ;
