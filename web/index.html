@@ -20,6 +20,7 @@
 			ul.innerHTML = this.responseText ;
 		  }
 		};
+		// xhttp.open("GET", "/cgi-bin/find_networks.pl", true);
 		xhttp.open("GET", "/cgi-bin/find_networks.pl", true);
 		xhttp.send();
 	  }
@@ -32,7 +33,10 @@
 					if(this.responseText == 'ok')
 					{
 						document.getElementById("conectando").className = "conectando";
-						alert("El sistema se está conectando. Siga las instrucciones en la pantalla de la cartelera.");
+						alert("El sistema se está conectando. Este proceso puede tardar unos minutos. Por favor espere y siga las instrucciones en la pantalla de la cartelera.");
+						setTimeout(function(){
+							alert("Ya puede cerrar esta ventana.");
+						 }, 5000);
 					}
 					else
 					{
@@ -43,10 +47,12 @@
 			var pwd = document.getElementById("pwd").value ;
 			var ssid = document.getElementById("ssid").value ;
 			console.log(`/cgi-bin/find_networks.pl?ssid=${ssid}&pwd=${pwd}`) ;
+			// xhttp.open("GET", `/cgi-bin/set_password.pl?ssid=${ssid}&pwd=${pwd}`, true);
 			xhttp.open("GET", `/cgi-bin/set_password.pl?ssid=${ssid}&pwd=${pwd}`, true);
 			xhttp.send();
 
 			console.log("sending") ;
+
 			return false;
 		}
 
@@ -88,7 +94,8 @@
 				</form>
 				<div class="conectando hide" id="conectando">
 					<span><svg aria-hidden="true" class="inline"><use xlink:href="img/constant.svg#refresh" /></svg></span>
-					El sistema se está conectando. Siga las instrucciones en la pantalla de la cartelera.
+					El sistema se está conectando. Este proceso puede tardar unos minutos.
+					Por favor espere y siga las instrucciones en la pantalla de la cartelera.
 				</div>
 			</div>
 			<button type="button" class="close"><svg aria-hidden="true"><use xlink:href="img/constant.svg#cross-thin" /></svg> Cerrar</button>
