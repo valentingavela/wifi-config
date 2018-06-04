@@ -18,14 +18,16 @@ while (true)
   {
 	  #DO NOTHING
 	  system("echo -n CONNECTED > /tmp/process_status") ;
+    stop__offline_icon() ;
   }
   elsif($net_status == 256 && $process_status ne "AP_IS_SET" && $process_status ne "WAIT_FOR_CLIENT" && $process_status ne "CLIENT_SET_PASSWORD")
   {
 	  #SET AP MODE
 	  print("SETTING AP MODE \n") ;
-  	  system("echo -n AP_IS_SET > /tmp/process_status") ;
-      system("perl /home/pi/wifi-config/wifi-config.pl AP") ;
-      system("echo -n WAIT_FOR_CLIENT > /tmp/process_status") ;
+	  system("echo -n AP_IS_SET > /tmp/process_status") ;
+    system("perl /home/pi/wifi-config/wifi-config.pl AP") ;
+    system("echo -n WAIT_FOR_CLIENT > /tmp/process_status") ;
+    start_offline_icon() ;
   }
   elsif($process_status eq "CLIENT_SET_PASSWORD")
   #($net_status == 256 && $process_status ne "CLI_IS_SET" && $process_status ne "WAIT_FOR_CLIENT")
@@ -75,4 +77,19 @@ sub waitForInternet
 		}
 	}
 	return $status ;
+}
+
+sub start_offline_icon
+{
+  system("touch /tmp/offline") ;
+  system("sh /home/pi/wifi-config/offline_network/offline_image.sh >/dev/null 2>/dev/null") ;
+}
+
+sub stop__offline_icon
+{
+  if(-e "/tmp/offline")
+  {
+    system("killall info-beamer") ;
+    system("rm /tmp/offline") ;
+  }
 }
