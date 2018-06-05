@@ -9,7 +9,6 @@ ln -s /home/pi/wifi-config/web/index.html   /var/www/html/index.html
 ln -s /home/pi/wifi-config/web/js   /var/www/html/js
 ln -s /home/pi/wifi-config/cgi/find_networks.pl   /var/www/html/cgi-bin/find_networks.pl
 ln -s /home/pi/wifi-config/cgi/set_password.pl    /var/www/html/cgi-bin/set_password.pl
-ln -s /home/pi/wifi-config/web/templates/messages /var/www/html/templates/
 
 chmod o+w /var/lib/misc/dnsmasq.leases
 
