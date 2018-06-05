@@ -1,6 +1,5 @@
 #!/usr/local/bin/perl
 use File::Slurp;
-sleep(25) ;
 
 while (true)
 {
@@ -16,14 +15,14 @@ while (true)
   #Status 256 no internet connected
   if($net_status == 0)
   {
-	system("echo -n CONNECTED > /tmp/process_status") ;
+	  system("echo -n CONNECTED > /tmp/process_status") ;
     stop_offline_icon() ;
   }
   elsif($net_status == 256 && $process_status ne "AP_IS_SET" && $process_status ne "WAIT_FOR_CLIENT" && $process_status ne "CLIENT_SET_PASSWORD")
   {
 	  #SET AP MODE
-	print("SETTING AP MODE \n") ;
-	system("echo -n AP_IS_SET > /tmp/process_status") ;
+	  print("SETTING AP MODE \n") ;
+	  system("echo -n AP_IS_SET > /tmp/process_status") ;
     system("perl /home/pi/wifi-config/wifi-config.pl AP") ;
     system("echo -n WAIT_FOR_CLIENT > /tmp/process_status") ;
     start_offline_icon() ;
