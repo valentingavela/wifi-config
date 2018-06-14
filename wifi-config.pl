@@ -106,4 +106,4 @@ elsif ($command eq "CLI")
   # system("dhclient -v eth0") ;
 }
 
-exit ;
+#exit ;

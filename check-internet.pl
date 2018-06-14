@@ -4,7 +4,7 @@ sleep(25) ;
 
 while (true)
 {
-  sleep(15) ;
+  sleep(10) ;
   #clearScn() ;
   my $net_status = networkStatus() ;
   my $process_status = read_file( '/tmp/process_status' ) ;
@@ -16,14 +16,14 @@ while (true)
   #Status 256 no internet connected
   if($net_status == 0)
   {
-	system("echo -n CONNECTED > /tmp/process_status") ;
+    system("echo -n CONNECTED > /tmp/process_status") ;
     stop_offline_icon() ;
   }
   elsif($net_status == 256 && $process_status ne "AP_IS_SET" && $process_status ne "WAIT_FOR_CLIENT" && $process_status ne "CLIENT_SET_PASSWORD")
   {
-	  #SET AP MODE
-	print("SETTING AP MODE \n") ;
-	system("echo -n AP_IS_SET > /tmp/process_status") ;
+    #SET AP MODE
+    print("SETTING AP MODE \n") ;
+    system("echo -n AP_IS_SET > /tmp/process_status") ;
     system("perl /home/pi/wifi-config/wifi-config.pl AP") ;
     system("echo -n WAIT_FOR_CLIENT > /tmp/process_status") ;
     start_offline_icon() ;
@@ -81,7 +81,7 @@ sub waitForInternet
 sub start_offline_icon
 {
   system("touch /tmp/offline") ;
-  system("sh /home/pi/wifi-config/offline_network/offline_image.sh >/dev/null 2>/dev/null") ;
+  system("sh /home/pi/wifi-config/offline_network/offline_image.sh >/dev/null 2>/dev/null &") ;
 }
 
 sub stop_offline_icon
