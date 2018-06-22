@@ -32,7 +32,7 @@ www-data ALL = NOPASSWD:/sbin/iptables
 www-data ALL = NOPASSWD:/usr/share/iptables
 www-data ALL = NOPASSWD:/sbin/dhclient
 www-data ALL = NOPASSWD:/usr/sbin/service
-
+www-data ALL = NOPASSWD:/sbin/reboot
 # Allow members of group sudo to execute any command
 %sudo	ALL=(ALL:ALL) ALL
 # See sudoers(5) for more information on "#include" directives:

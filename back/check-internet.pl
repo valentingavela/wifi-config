@@ -1,42 +1,33 @@
 #!/usr/local/bin/perl
 use File::Slurp;
-sleep(10) ;
+#sleep(10) ;
 
 while (true)
 {
-  sleep(10) ;
+  #sleep(10) ;
+  sleep(3) ;
   #clearScn() ;
   my $net_status = networkStatus() ;
   my $process_status = read_file( '/tmp/process_status' ) ;
-  my $status_first_time = read_file('/var/www/html/firstTimeConfiguration') ;
-
-
+  my $first_time = read_file('/var/www/html/firstTimeConfiguration') ;
   print("NET STAT: $net_status \n");
   print("PROCESS STATUS: $process_status \n");
+  print("FIRST TIME STATUS $first_time \n\n");
 
   #Status 0 is internet connected
   #Status 256 no internet connected
   if($net_status == 0)
   {
     system("echo -n CONNECTED > /tmp/process_status") ;
-
-    if(read_file('/var/www/html/firstTimeConfiguration') ne 'PRODUCTION')
-    {
-		system("echo -n SYNCHRO > /var/www/html/firstTimeConfiguration") ;
-	}
-
     stop_offline_icon() ;
   }
   elsif($net_status == 256 && $process_status ne "AP_IS_SET" && $process_status ne "WAIT_FOR_CLIENT" && $process_status ne "CLIENT_SET_PASSWORD")
   {
-    if($status_first_time ne 'PRODUCTION')
-    {
-      #SET AP MODE
-      print("SETTING AP MODE \n") ;
-      system("echo -n AP_IS_SET > /tmp/process_status") ;
-      system("perl /home/pi/wifi-config/wifi-config.pl AP") ;
-      system("echo -n WAIT_FOR_CLIENT > /tmp/process_status") ;
-    }
+    #SET AP MODE
+    print("SETTING AP MODE \n") ;
+    system("echo -n AP_IS_SET > /tmp/process_status") ;
+    system("perl /home/pi/wifi-config/wifi-config.pl AP") ;
+    system("echo -n WAIT_FOR_CLIENT > /tmp/process_status") ;
     start_offline_icon() ;
   }
   elsif($process_status eq "CLIENT_SET_PASSWORD")
@@ -50,12 +41,11 @@ while (true)
 
 	  if(waitForInternet() == 0) #IF NO INTERNET
 	  {
-		system("echo -n CANT_CONNECT > /var/www/html/firstTimeConfiguration") ;
+		system("echo -n CANT_CONNECT > /tmp/process_status") ;
 	  }
   }
 }
 
-#######
 sub clearScn
 {
 	print "\033[2J";   #clear the screen

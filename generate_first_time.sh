@@ -6,4 +6,4 @@ echo "update_config=1" >> /etc/wpa_supplicant/wpa_supplicant.conf
 echo "country=AR" >> /etc/wpa_supplicant/wpa_supplicant.conf
 cd  /var/www/html/siguitds/inmobiliarias/images/ &&
 ls | head -n 1 | xargs rm
-reboot
+sudo reboot

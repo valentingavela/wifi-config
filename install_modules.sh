@@ -16,3 +16,6 @@ cp sudo/sudoers /etc/sudoers
 touch /home/pi/cfile
 echo "* * * * * perl /home/pi/wifi-config/check-internet.pl >/dev/null 2>/dev/null" >> /home/pi/cfile
 crontab /home/pi/cfiletouch /home/pi/cfile
+
+chmod o+w /home/pi/wifi-config/cli/wpa_supplicant.conf
+chmod o+w /etc/wpa_supplicant/wpa_supplicant.conf
